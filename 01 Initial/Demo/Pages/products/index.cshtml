@@ -1,0 +1,43 @@
+﻿@page
+@using System.Security.Claims
+@using Demo.Models.Content
+@model Demo.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products";
+}
+<table class="table table-striped">
+    <thead>
+        <tr class="table-secondary">
+            <th scope="col" colspan="2">Products for @this.User.Claims.First(claim => claim.Type == ClaimTypes.Name).Value</th>
+        </tr>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Product product in Model.AllProducts)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>
+                    <form method="post" asp-page="./delete" asp-route-productid="@product.Id">
+                        <a class="btn" asp-page="./details" asp-route-productid="@product.Id"><span class="oi oi-magnifying-glass"></span></a>
+                        <button type="submit" class="btn"><span class="oi oi-trash"></span></button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+                <form method="post" asp-page="./insert">
+                    <label>New product</label>
+                    <input asp-for="NewProductName" />
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
+</table>
