@@ -1,0 +1,40 @@
+﻿@page "{productId}"
+@model Demo.Pages.Products.DetailsModel
+@{
+    ViewData["Title"] = "Product Details";
+}
+<table class="table table-striped">
+    <thead>
+        <tr class="table-secondary">
+            <th scope="col" colspan="2">Product Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Name</td>
+            <td>@Model.Product?.Name</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+                <a class="btn btn-primary" asp-page="./index">Back</a>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<table class="table table-striped table-info log">
+    <tbody>
+        @foreach (IEnumerable<string> row in Model.LogLines)
+        {
+            <tr>
+                <td>
+                    @foreach (string line in row)
+                    {
+                        @line<br/>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
